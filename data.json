@@ -1,0 +1,75 @@
+{
+   "Bruteforce":[
+      {
+         "test_name":"bruteforce simple",
+         "resault":"passed",
+         "msg":""
+      },
+      {
+         "test_name":"bruteforce dictionary",
+         "resault":"passed",
+         "msg":""
+      },
+      {
+         "test_name":"bruteforce random",
+         "resault":"failed",
+         "msg":"Did not block"
+      }
+   ],
+   "DoS":[
+      {
+         "test_name":"DoS simple",
+         "resault":"passed",
+         "msg":""
+      },
+      {
+         "test_name":"Dos spoofed ip",
+         "resault":"passed",
+         "msg":""
+      },
+      {
+         "test_name":"DoS random queries",
+         "result":"passed",
+         "msg":""
+      },
+      {
+         "test_name":"DoS spoofed ip + random",
+         "resault":"passed",
+         "msg":""
+      }
+   ],
+   "XSS":[
+      {
+         "test_name":"simple redirects",
+         "resault":"failed",
+         "msg":"redirected!"
+      },
+      {
+         "test_name":"write data",
+         "resault":"failed",
+         "msg":"changed page data"
+      },
+      {
+         "test_name":"delete data",
+         "resault":"failed",
+         "msg":"data was deleted from page"
+      }
+   ],
+   "JSON injection":[
+      {
+         "test_name":"simple string",
+         "resault":"failed",
+         "msg":"was not detected"
+      },
+      {
+         "test_name":"get data",
+         "resault":"passed",
+         "msg":"returned data"
+      },
+      {
+         "test_name":"insert data",
+         "resault":"failed",
+         "msg":"file was changed"
+      }
+   ]
+}
