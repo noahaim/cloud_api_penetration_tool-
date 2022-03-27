@@ -11,8 +11,22 @@
              <div class="container py-5 text-center">
                   <h1 class="display-4 font-weight-bold">Rapid API penetration tester</h1>
                   <p class="font-italic mb-2">A quick and easy way to test your cloud API .</p>
-                  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                  <a href="/allAPI" role="button" class="btn btn-dark px-5" >Login</a>
+                  <br/><br/><br/>
+                   {% if us %}
+                        {{us}}
+                   {% endif %}
+                  <form action="/login" method="post">
+                      <label for="inputEmail">Email</label>
+                      <input type="email" id="inputEmail" name="name">
+                      <br/><br/>
+                      <label for="inputPass">Password</label>
+                      <input type="password" id="inputPass" name="pass">
+                      <br/><br/>
+                      <button type="submit" class="btn btn-dark px-5" >Sign in</button>
+                      <a class = "btn btn-dark px-5" role="button" href="/createUser">Signup</a>
+                  </form>
+                 <br/><br/>
+<!--                  <a href="/allAPI" role="button" class="btn btn-dark px-5" >Login</a>-->
               </div>
           </div>
     </body>

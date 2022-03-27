@@ -1,31 +1,39 @@
 """
 Main program run file
-
-
 """
 import json
+from getpass import getpass
 
-from flask import Flask, render_template,url_for
+from flask import Flask, render_template, url_for, request
+from werkzeug.utils import redirect
 
 import testBRTFRC
 import testDOS
 import testJSONJCTN
 import testXSS
 from test_resaults import TestRes
+import pyrebase
 
 app = Flask(__name__)
+config = {
+    "apiKey": "AIzaSyCNmdtg0fjdCXoXXkUSxqSiIYuzl_50R4Y",
+    "authDomain": "finalproject-71cb6.firebaseapp.com",
+    "projectId": "finalproject-71cb6",
+    "databaseURL": "https://finalproject-71cb6-default-rtdb.firebaseio.com/",
+    "storageBucket": "finalproject-71cb6.appspot.com",
+    "messagingSenderId": "463492559459",
+    "appId": "1:463492559459:web:8f42ae5c51143311703e56",
+    "measurementId": "G-DKJWRJQHP1"
+}
 
-# config = {
-#     "apiKey": "AIzaSyCNmdtg0fjdCXoXXkUSxqSiIYuzl_50R4Y",
-#     "authDomain": "finalproject-71cb6.firebaseapp.com",
-#     "projectId": "finalproject-71cb6",
-#     "databaseURL": "https://finalproject-71cb6-default-rtdb.firebaseio.com/",
-#     "storageBucket": "finalproject-71cb6.appspot.com",
-#     "messagingSenderId": "463492559459",
-#     "appId": "1:463492559459:web:8f42ae5c51143311703e56",
-#     "measurementId": "G-DKJWRJQHP1"
-# }
+firebase = pyrebase.initialize_app(config)
+auth = firebase.auth()
 
+# e=input("Please Enter Your Email Address: \n")
+# p=input("Please enter password: \n")
+# auth.create_user_with_email_and_password(e,p)
+# user=auth.sign_in_with_email_and_password(e,p)
+# print(auth.get_account_info((user['idToken'])))
 
 @app.route('/dashboard')
 @app.route('/')
@@ -72,9 +80,18 @@ def dashboard():
         data=data
     )
 
-@app.route('/login')
+@app.route('/login', methods=['GET','POST'])
 def login():
-    return render_template("login.html")
+    if request.method == 'POST':
+        email = request.form['name']
+        password = request.form['pass']
+        try:
+            user=auth.sign_in_with_email_and_password(email, password)
+            return auth.get_account_info((user['idToken']))
+        except:
+            return render_template('login.html', us='Please check your credentials')
+
+    return render_template('login.html')
 
 #שליפה של כל הAPI של המשתמש הספציפי והעברה של המידע לHTML
 @app.route('/allAPI')
@@ -85,6 +102,17 @@ def allAPI():
 def addNewAPI():
     return render_template("addNewApi.html")
 
+@app.route('/createUser', methods=['GET','POST'])
+def createUser():
+    if request.method == 'POST':
+        email = request.form['name']
+        password = request.form['pass']
+        try:
+            auth.create_user_with_email_and_password(email, password)
+            return 'Create Successful'
+        except:
+            return render_template('createUser.html', us='Please try again')
 
+    return render_template('createUser.html')
 
 
