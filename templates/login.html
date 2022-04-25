@@ -6,28 +6,39 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
       <title>Login</title>
     </head >
-    <body style="background-color: rgba(60, 149, 181, 0.5);">
-          <div style="background: url(https://lh3.googleusercontent.com/proxy/p3f4rLY_GBa6FHr7l3cxHRYdPmAEhq7lLPls7jdL52HcO49SpntBT7UQyLe0MGcjvwJX8Ye_z4L82bEXI5_fWIkyf6_6P32IpudP6oSXP_r8KWaMVMuwx3VW8mpvZpQyAGFkLBwRNw)" class="jumbotron bg-cover text-black">
-             <div class="container py-5 text-center">
-                  <h1 class="display-4 font-weight-bold">Rapid API penetration tester</h1>
-                  <p class="font-italic mb-2">A quick and easy way to test your cloud API .</p>
-                  <br/><br/><br/>
-                   {% if us %}
-                        {{us}}
-                   {% endif %}
-                  <form action="/login" method="post">
-                      <label for="inputEmail">Email</label>
-                      <input type="email" id="inputEmail" name="name">
-                      <br/><br/>
-                      <label for="inputPass">Password</label>
-                      <input type="password" id="inputPass" name="pass">
-                      <br/><br/>
-                      <button type="submit" class="btn btn-dark px-5" >Sign in</button>
-                      <a class = "btn btn-dark px-5" role="button" href="/createUser">Signup</a>
-                  </form>
-                 <br/><br/>
-<!--                  <a href="/allAPI" role="button" class="btn btn-dark px-5" >Login</a>-->
-              </div>
-          </div>
+    <body style="background: url('/static/images/background.jpg')">
+        <div class="container py-5 text-center">
+            <br/><br/><br/>
+            <div class="card text-white" style="background-color: rgba(195, 220, 245, 0.5);">
+            <h1 class="display-4 font-weight-bold">Rapid API penetration tester</h1>
+            <p class="font-italic mb-2">A quick and easy way to test your cloud API .</p>
+            <br/><br/>
+            {% if us %}
+                {{us}}
+            {% endif %}
+            <form action="/login" method="post">
+                <center>
+                    <div class="form-group col-md-2">
+                        <input type="email" class="form-control" placeholder="Email" id="inputEmail" name="name" >
+                        <br/>
+                        <input type="password" class="form-control" placeholder="Password" id="inputPass" name="pass">
+                        <br/>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="rememberMe" checked="">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                    </div>
+                </center>
+                <br/>
+                <button type="submit" class="btn btn-dark px-5" >Sign in</button>
+            </form>
+            <br/>
+            <p class="mb-4 text-sm mx-auto">
+                Don't have an account?
+                <a href="/createUser" class="text-gradient font-weight-bold">Sign UP</a>
+            </p>
+            <br/><br/>
+            </div>
+        </div>
     </body>
 </html>

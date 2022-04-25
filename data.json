@@ -46,7 +46,7 @@
       },
       {
          "test_name":"write data",
-         "resault":"failed",
+         "result":"failed",
          "msg":"changed page data"
       },
       {

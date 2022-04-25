@@ -9,14 +9,37 @@
     <body style="background-color: rgba(60, 149, 181, 0.5);">
           <div style="background: url(https://lh3.googleusercontent.com/proxy/p3f4rLY_GBa6FHr7l3cxHRYdPmAEhq7lLPls7jdL52HcO49SpntBT7UQyLe0MGcjvwJX8Ye_z4L82bEXI5_fWIkyf6_6P32IpudP6oSXP_r8KWaMVMuwx3VW8mpvZpQyAGFkLBwRNw)" class="jumbotron bg-cover text-black">
              <div class="container py-5 text-center">
+                  <br/><br/><br/>
                   <h1 class="display-4 font-weight-bold">Add new API</h1>
                   <a href="https://github.com/annagitel/finalProject" role="button" class="btn btn-dark px-5" >Github and Documentation</a>
-                  <br/>
+                 <br/><br/><br/><br/>
+                 <form action="/addNewAPI" method="post">
+                     <center>
+                         <div class="form-group col-md-2">
+                             <input type="name" class="form-control" placeholder="API endpoint URL" id="url" name="name">
+                             <br/>
+                             <input type="name" class="form-control" placeholder="API endpint port" id="port" name="name">
+                             <br/>
+                             <h6>Tests:</h6>
+                             <input type="checkbox" id="val1" name="val1" value="app">
+                             <label for="val1"> Bruteforce</label>
+                             <br/>
+                             <input type="checkbox" id="val2" name="val2" value="app">
+                             <label for="val2"> Dos</label>
+                             <br/>
+                             <input type="checkbox" id="val3" name="val3" value="app">
+                             <label for="val3"> XSS</label>
+                             <br/>
+                             <input type="checkbox" id="val4" name="val4" value="app">
+                             <label for="val4"> JSON injection</label>
+                             <br/><br/><br/>
+                         </div>
+                         <center>
+                             <a href="/allAPI" role="button" class="btn btn-dark px-5" >add&run</a>
+                         </center>
+                     </center>
+                 </form>
               </div>
-              <center>
-                  <a href="/allAPI" role="button" class="btn btn-dark px-5" >run</a>
-              </center>
-
           </div>
     </body>
 </html>

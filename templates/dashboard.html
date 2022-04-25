@@ -28,14 +28,14 @@
 
                   <ul class="list-group list-group-flush">
                      {% for dict_item in value %}
-                        {% if "failed" == dict_item['resault'] %}
+                        {% if "failed" == dict_item['result'] %}
                            <li class="list-group-item">
                                <img class="right" src="{{ image_file_x }}" width= "20" height="20"/>
                                  {{dict_item['test_name']}}
                                  <pre style="margin: 0;" class="tab">   -{{dict_item['msg']}}</pre>
                            </li>
                         {% endif %}
-                        {% if "passed" == dict_item['resault'] %}
+                        {% if "passed" == dict_item['result'] %}
                            <li class="list-group-item ">
                                <img class="right" src="{{ image_file_vi }}" width= "23" height="23"/>
                                  {{dict_item['test_name']}}

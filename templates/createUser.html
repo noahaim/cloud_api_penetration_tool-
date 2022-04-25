@@ -9,18 +9,30 @@
     <body style="background-color: rgba(60, 149, 181, 0.5);">
         <div style="background: url(https://lh3.googleusercontent.com/proxy/p3f4rLY_GBa6FHr7l3cxHRYdPmAEhq7lLPls7jdL52HcO49SpntBT7UQyLe0MGcjvwJX8Ye_z4L82bEXI5_fWIkyf6_6P32IpudP6oSXP_r8KWaMVMuwx3VW8mpvZpQyAGFkLBwRNw)" class="jumbotron bg-cover text-black">
             <div class="container py-5 text-center">
+            <br/><br/><br/>
+            <h1 class="display-4 font-weight-bold">Create a new user</h1>
+            <br/>
             {% if us %}
             {{us}}
             {% endif %}
-            <form action="/createUser" method="post">
-                <label for="inputEmail">Email</label>
-                <input type="email" id="inputEmail" name="name">
-                <br/><br/>
-                <label for="inputPass">Password</label>
-                <input type="password" id="inputPass" name="pass">
-                <br/><br/>
-                <button type="submit" class="btn btn-dark px-5">Create user</button>
-            </form>
+            <center>
+                <form action="/createUser" method="post">
+                    <div class="form-group col-md-2">
+                        <input type="email" class="form-control" placeholder="Email" id="inputEmail" name="name">
+                        <br/>
+                        <input type="password" class="form-control" placeholder="Password" id="inputPass" name="pass">
+                        <br/>
+                        <button type="submit" class="btn btn-dark px-5">Sign up</button>
+                    </div>
+                </form>
+            </center>
+            </div>
+            <div class="text-center">
+                  <p class="mb-4 text-sm mx-auto">
+                    Already have an account?
+                    <a href="/login" class="text-gradient font-weight-bold">Sign IN</a>
+                  </p>
+            </div>
             </div>
         </div>
     </body>

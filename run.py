@@ -98,7 +98,7 @@ def login():
 def allAPI():
     return render_template("allAPI.html")
 
-@app.route('/addNewAPI')
+@app.route('/addNewAPI',methods=['GET','POST'])
 def addNewAPI():
     return render_template("addNewApi.html")
 
@@ -115,4 +115,7 @@ def createUser():
 
     return render_template('createUser.html')
 
+@app.route('/APIruns')
+def APIruns():
+    return render_template("APIruns.html")
 
