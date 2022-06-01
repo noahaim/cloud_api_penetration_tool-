@@ -3,16 +3,27 @@ Main program run file
 """
 import json
 from getpass import getpass
+import firebase_admin
+from firebase_admin import db
+from firebase_admin import auth
 
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, session
+import requests
 from werkzeug.utils import redirect
 
+from flask import Flask, render_template, redirect, request, session
+from flask_session import Session
 import testBRTFRC
 import testDOS
 import testJSONJCTN
 import testXSS
+from API import API
+from run_class import Run
 from test_resaults import TestRes
 import pyrebase
+import datetime
+
+from user import user
 
 app = Flask(__name__)
 config = {
@@ -25,15 +36,15 @@ config = {
     "appId": "1:463492559459:web:8f42ae5c51143311703e56",
     "measurementId": "G-DKJWRJQHP1"
 }
+cred_obj = firebase_admin.credentials.Certificate('templates/finalproject-71cb6-firebase-adminsdk-1vkye-8bcdf57051.json')
+default_app = firebase_admin.initialize_app(cred_obj, {
+	'databaseURL': 'https://finalproject-71cb6-default-rtdb.firebaseio.com/'
+	})
+
 
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
-
-# e=input("Please Enter Your Email Address: \n")
-# p=input("Please enter password: \n")
-# auth.create_user_with_email_and_password(e,p)
-# user=auth.sign_in_with_email_and_password(e,p)
-# print(auth.get_account_info((user['idToken'])))
+# db=firebase.database()
 
 @app.route('/dashboard')
 @app.route('/')
@@ -79,15 +90,18 @@ def dashboard():
         'dashboard.html', image_file_vi=image_file_vi,image_file_x=image_file_x,
         data=data
     )
-
+userID=""
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
         email = request.form['name']
         password = request.form['pass']
         try:
-            user=auth.sign_in_with_email_and_password(email, password)
-            return auth.get_account_info((user['idToken']))
+            u=auth.sign_in_with_email_and_password(email, password)
+            userID=db.reference("/Users").child(u['localId'])
+            # print(ref.get()['name'])
+            # return auth.get_account_info(u['idToken'])
+            return allAPI(userID)
         except:
             return render_template('login.html', us='Please check your credentials')
 
@@ -95,21 +109,52 @@ def login():
 
 #שליפה של כל הAPI של המשתמש הספציפי והעברה של המידע לHTML
 @app.route('/allAPI')
-def allAPI():
-    return render_template("allAPI.html")
+def allAPI(userID):
+    # s = requests.Session()
+    # s['id']=userID
+    # session["id"] = userID
+    # print(userID.key)
+    return render_template("allAPI.html",name=userID.get()['name'],id=userID.key)
 
+
+@app.route('/addNewAPI/<userID>', methods=['GET','POST'])
 @app.route('/addNewAPI',methods=['GET','POST'])
-def addNewAPI():
-    return render_template("addNewApi.html")
+def addNewAPI(userID):
+    if request.method == 'POST':
+        url_end_point = request.form['url']
+        port = request.form['port']
+        github = request.form['github']
+        tests = request.form.getlist('testlist')
+        try:
+            api = API(url_end_point, port, github, tests)
+            time=datetime.datetime.now()
+            run = Run(time)
+            api.add_run(run)
+            ref=db.reference("/Users").child(userID)
+            update_user=user(ref.child('name').get(),ref.child('email').get(),ref.child('apiList').get())
+            update_user.add_api(api)
+            data = update_user.writeToJson()
+            db.reference("/Users").child(userID).set(data)
+            return allAPI(userID)
+        except:
+            return render_template('addNewApi.html', id=userID)
+
+    return render_template('addNewApi.html',id=userID)
+
 
 @app.route('/createUser', methods=['GET','POST'])
 def createUser():
     if request.method == 'POST':
-        email = request.form['name']
+        user_name = request.form['name']
+        email = request.form['email']
         password = request.form['pass']
         try:
-            auth.create_user_with_email_and_password(email, password)
-            return 'Create Successful'
+            u=auth.create_user_with_email_and_password(email, password)
+            new_user = user(user_name, email)
+            data=new_user.writeToJson()
+            db.reference("/Users").child(u.get("localId")).set(data)
+            return render_template('createUser.html',us='Create Successful')
+
         except:
             return render_template('createUser.html', us='Please try again')
 

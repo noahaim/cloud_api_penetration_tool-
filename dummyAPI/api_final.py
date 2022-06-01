@@ -1,8 +1,8 @@
-import flask
-from flask import request, jsonify
+import run
+from run import request, jsonify
 import sqlite3
 
-app = flask.Flask(__name__)
+app = run.Flask(__name__)
 app.config["DEBUG"] = True
 
 req_counter = 0

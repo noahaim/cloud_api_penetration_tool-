@@ -13,30 +13,34 @@
                   <h1 class="display-4 font-weight-bold">Add new API</h1>
                   <a href="https://github.com/annagitel/finalProject" role="button" class="btn btn-dark px-5" >Github and Documentation</a>
                  <br/><br/><br/><br/>
-                 <form action="/addNewAPI" method="post">
+                 <form action="/addNewAPI/{{id}}" method="post">
                      <center>
                          <div class="form-group col-md-2">
-                             <input type="name" class="form-control" placeholder="API endpoint URL" id="url" name="name">
+                             <input type="url" class="form-control" placeholder="API endpoint URL" id="url" name="url">
                              <br/>
-                             <input type="name" class="form-control" placeholder="API endpint port" id="port" name="name">
+                             <input type="name" class="form-control" placeholder="API endpint port" id="port" name="port">
+                             <br/>
+                             <input type="url" class="form-control" placeholder="github link" id="github" name="github">
                              <br/>
                              <h6>Tests:</h6>
-                             <input type="checkbox" id="val1" name="val1" value="app">
-                             <label for="val1"> Bruteforce</label>
+                             <input type="checkbox" id="Bruteforce" name="testlist" value="Bruteforce">
+                             <label for="Bruteforce"> Bruteforce</label>
                              <br/>
-                             <input type="checkbox" id="val2" name="val2" value="app">
-                             <label for="val2"> Dos</label>
+                             <input type="checkbox" id="Dos" name="testlist" value="Dos">
+                             <label for="Dos"> Dos</label>
                              <br/>
-                             <input type="checkbox" id="val3" name="val3" value="app">
-                             <label for="val3"> XSS</label>
+                             <input type="checkbox" id="XSS" name="testlist" value="XSS">
+                             <label for="XSS"> XSS</label>
                              <br/>
-                             <input type="checkbox" id="val4" name="val4" value="app">
-                             <label for="val4"> JSON injection</label>
+                             <input type="checkbox" id="j_injection" name="testlist" value="JSON injection" >
+                             <label for="j_injection"> JSON injection</label>
                              <br/><br/><br/>
+<!--                             <button href="/addNewAPI/{{id}}" type="submit" class="btn btn-dark px-5" >add&run</button>-->
+                             <button type="submit" class="btn btn-dark px-5">add&run</button>
                          </div>
-                         <center>
-                             <a href="/allAPI" role="button" class="btn btn-dark px-5" >add&run</a>
-                         </center>
+<!--                         <center>-->
+<!--                             <a href="/addNewAPI" role="button" class="btn btn-dark px-5" >add&run</a>-->
+<!--                         </center>-->
                      </center>
                  </form>
               </div>
