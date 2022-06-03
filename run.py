@@ -110,23 +110,21 @@ def login():
 #שליפה של כל הAPI של המשתמש הספציפי והעברה של המידע לHTML
 @app.route('/allAPI')
 def allAPI(userID):
-    # s = requests.Session()
-    # s['id']=userID
-    # session["id"] = userID
-    # print(userID.key)
-    return render_template("allAPI.html",name=userID.get()['name'],id=userID.key)
+    print(userID)
+    return render_template("allAPI.html",name=userID.get()['name'],id=userID.key,apis=userID.get()['apiList'])
 
 
 @app.route('/addNewAPI/<userID>', methods=['GET','POST'])
 @app.route('/addNewAPI',methods=['GET','POST'])
 def addNewAPI(userID):
     if request.method == 'POST':
+        name= request.form['name']
         url_end_point = request.form['url']
         port = request.form['port']
         github = request.form['github']
         tests = request.form.getlist('testlist')
         try:
-            api = API(url_end_point, port, github, tests)
+            api = API(name,url_end_point, port, github, tests)
             time=datetime.datetime.now()
             run = Run(time)
             api.add_run(run)
@@ -135,7 +133,7 @@ def addNewAPI(userID):
             update_user.add_api(api)
             data = update_user.writeToJson()
             db.reference("/Users").child(userID).set(data)
-            return allAPI(userID)
+            return allAPI(ref)
         except:
             return render_template('addNewApi.html', id=userID)
 
@@ -160,7 +158,12 @@ def createUser():
 
     return render_template('createUser.html')
 
-@app.route('/APIruns')
-def APIruns():
-    return render_template("APIruns.html")
+@app.route('/APIruns/<userID>/<apiName>', methods=['GET','POST'])
+@app.route('/APIruns',methods=['GET','POST'])
+def APIruns(userID,apiName):
+    apis = db.reference("/Users").child(userID).get()['apiList']
+    for api in apis:
+        if api['name'] == apiName:
+            runs=api['runs']
+    return render_template("APIruns.html",name=apiName,runs=runs)
 

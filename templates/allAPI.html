@@ -13,5 +13,16 @@
                   <a href="/addNewAPI/{{id}}" role="button" class="btn btn-dark px-5" >add new API</a>
               </div>
           </div>
+          <div class="container">
+              <ul class="list-group list-group-flush">
+                  {% for api in apis %}
+                      <div class="list-group-item">
+                          <a>{{api['name']}}</a>
+                          <a href="/APIruns/{{id}}/{{api['name']}}" role="button" class="btn btn-dark px-1" >all runs</a>
+                          <a role="button" class="btn btn-dark px-1" >delete</a>
+                      </div>
+                  {% endfor %}
+              </ul>
+          </div>
     </body>
 </html>

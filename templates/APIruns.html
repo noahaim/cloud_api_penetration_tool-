@@ -9,7 +9,22 @@
     <body style="background-color: rgba(60, 149, 181, 0.5);">
           <div style="background: url(https://lh3.googleusercontent.com/proxy/p3f4rLY_GBa6FHr7l3cxHRYdPmAEhq7lLPls7jdL52HcO49SpntBT7UQyLe0MGcjvwJX8Ye_z4L82bEXI5_fWIkyf6_6P32IpudP6oSXP_r8KWaMVMuwx3VW8mpvZpQyAGFkLBwRNw)" class="jumbotron bg-cover text-black">
               <div class="container py-5 text-center">
-                <h1 class="display-4 font-weight-bold">API Runs:</h1>
+                <h2 class="display-4 font-weight-bold">{{name}}</h2>
+                <h1 class="display-4 font-weight-bold">All Runs:</h1>
+                </br></br></br>
+                <div class="container">
+                  <ul class="list-group list-group-flush">
+                      {% for run in runs %}
+                          <div class="list-group-item">
+                              <a>{{run['date']}}</a>
+                              <a>{{run['time']}}</a>
+                              <a href="/dashboard" role="button" class="btn btn-dark px-1" >results</a>
+                              <a role="button" class="btn btn-dark px-1" >delete</a>
+                          </div>
+                      {% endfor %}
+                  </ul>
+                </div>
+                </br></br>
                 <button class="btn btn-dark px-5" >Edit</button>
                 <button class="btn btn-dark px-5" >Rerun</button>
               </div>
